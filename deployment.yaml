@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-sample
+  labels:
+    app: nodejs-sample
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nodejs-sample
+  template:
+    metadata:
+      labels:
+        app: nodejs-sample
+    spec:
+      containers:
+      - name: nodejs-sample
+        image: node:16
+        ports:
+        - containerPort: 8080
+        command: ["node"]
+        args: ["-e", "const http = require('http'); const server = http.createServer((req, res) => res.end('Hello, OpenShift!')); server.listen(8080);"]
