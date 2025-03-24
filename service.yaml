@@ -1,0 +1,22 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: nodejs-sample
+spec:
+  to:
+    kind: Service
+    name: nodejs-sample
+  port:
+    targetPort: 8080
+[ocp1@bastion gitops_nodejs]$ cat service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodejs-sample
+spec:
+  selector:
+    app: nodejs-sample
+  ports:
+  - port: 8080
+    targetPort: 8080
+  type: ClusterIP
